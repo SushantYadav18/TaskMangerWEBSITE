@@ -1,33 +1,35 @@
-import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet, useLocation } from "react-router-dom";
+import { Toaster } from "sonner";
 
-import Layout from "./components/Layout";
+import TaskDetails from "./pages/TaskDetails";
 import Dashboard from "./pages/Dashboard";
 import Tasks from "./pages/Tasks";
 import Users from "./pages/Users";
 import Trash from "./pages/Trash";
-import TasksDetails from "./pages/TasksDetails";
 import Login from "./pages/Login";
-import { Toaster } from "sonner-react";
 
-function Layout () {
-  const user = ""
-   const location  = useLocation()
+function Layout() {
+  const user = null;
+  const location = useLocation();
+  const isPublicRoute = location.pathname === "/log-in";
 
-   return user ? (
-    <div className= "w-full h-screen flex flex-col md:flex-row">
+  if (!user && !isPublicRoute) {
+    return <Navigate to="/log-in" state={{ from: location }} replace />;
+  }
 
-<div className="w-1/5 h-screen bg-white  sticky top-0 hidden md:block">
-   { /* <Sidebar/> */}
-   
-  </div>
-
-  
+  return (
+    <div className="w-full min-h-screen flex flex-col md:flex-row bg-[#f3f4f6]">
+      <div className="w-1/5 h-screen bg-white sticky top-0 hidden md:block">
+        {/* <Sidebar /> */}
       </div>
-    
-   ):(
-    <Navigate to="/log-in"  state={{from: location}} replace/>
-   );
+
+      <div className="flex-1 h-screen overflow-y-auto">
+        <div className="p-4 2xl:px-10">
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function App() {
@@ -35,7 +37,7 @@ function App() {
     <main className="w-full min-h-screen bg-[#f3f4f6]">
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/completed/:status" element={<Tasks />} />
@@ -43,8 +45,7 @@ function App() {
           <Route path="/todo/:status" element={<Tasks />} />
           <Route path="/team" element={<Users />} />
           <Route path="/trashed" element={<Trash />} />
-          <Route path="/task/:id" element={<TasksDetails />} />
-
+          <Route path="/task/:id" element={<TaskDetails />} />
           <Route path="/log-in" element={<Login />} />
         </Route>
       </Routes>
