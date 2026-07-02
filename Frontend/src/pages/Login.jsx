@@ -1,11 +1,12 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import Textbox from "../components/Textbox";
 
 const Login = () => {
-  const user = null;
+  const {user} = useSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
@@ -13,16 +14,20 @@ const Login = () => {
   } = useForm();
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log("Login data:", data);
-    // Add your login logic here
+ const submitHandler = async (data) => {
+    console.log("submit", data);
+  };
+
+  console.log("user", user);
+  const submitErrorHandler = (errors) => {
+    console.log("submit failed", errors);
   };
 
   useEffect(() => {
-    if (user) {
+    user &&
       navigate("/dashboard");
-    }
-  }, [user, navigate]);
+    
+  }, [user]);
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-[#f3f4f6] px-4 py-10">
@@ -40,11 +45,11 @@ const Login = () => {
           </h1>
 
           {/* gradient orb */}
-          <div className="mt-10 w-20 h-20 rounded-full ml-45 bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-600 shadow-lg shadow-purple-300/50" />
+          <div className="mt-10 w-20 h-20 rounded-full ml-45 bg-linear-to-br from-indigo-500 via-purple-500 to-blue-600 shadow-lg shadow-purple-300/50" />
         </div>
 
         {/* right side */}
-        <div className="w-full m-auto lg:w-[400px] bg-white rounded-2xl shadow-xl p-8">
+        <div className="w-full m-auto lg:w-100 bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold text-blue-700">Welcome back!</h2>
             <p className="text-sm text-gray-500 mt-1">
@@ -52,7 +57,7 @@ const Login = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <form onSubmit={handleSubmit(submitHandler, submitErrorHandler)} className="space-y-5">
             <Textbox
               label="Email Address"
               id="email"
@@ -80,7 +85,7 @@ const Login = () => {
             </div>
 
             <Button type="submit" className="w-full">
-              Log in
+              Submit
             </Button>
           </form>
         </div>
