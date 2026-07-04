@@ -18,7 +18,7 @@ const Login = () => {
     console.log("submit", data);
   };
 
-  console.log("user", user);
+ // console.log("user", user);
   const submitErrorHandler = (errors) => {
     console.log("submit failed", errors);
   };
