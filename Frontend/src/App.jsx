@@ -9,6 +9,8 @@ import Users from "./pages/Users";
 import Trash from "./pages/Trash";
 import Login from "./pages/Login";
 import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
+
 
 function Layout() {
   const {user} = useSelector((state) => state.auth);
@@ -28,6 +30,9 @@ function Layout() {
       </div>
 
       <div className="flex-1 h-screen overflow-y-auto">
+        {/* navbar */}
+        <Navbar />
+
         <div className="p-4 2xl:px-10">
           <Outlet />
         </div>
