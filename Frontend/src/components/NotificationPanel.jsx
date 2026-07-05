@@ -18,8 +18,8 @@ const data = [
     task: null,
     notiType: "alert",
     isRead: [],
-    createdAt: "2024-02-09T05:45:23.353Z",
-    updatedAt: "2024-02-09T05:45:23.353Z",
+    createdAt: "2026-06-09T05:45:23.353Z",
+    updatedAt: "2026-06-09T05:45:23.353Z",
     __v: 0,
   },
   {
@@ -36,8 +36,8 @@ const data = [
     },
     notiType: "alert",
     isRead: [],
-    createdAt: "2024-02-09T09:32:26.810Z",
-    updatedAt: "2024-02-09T09:32:26.810Z",
+    createdAt: "2026-06-09T09:32:26.810Z",
+    updatedAt: "2026-06-09T09:32:26.810Z",
     __v: 0,
   },
 ];
@@ -75,9 +75,9 @@ const NotificationPanel = () => {
       <Popover className='relative'>
         <Popover.Button className='inline-flex items-center outline-none'>
           <div className='w-8 h-8 flex items-center justify-center text-gray-800 relative'>
-            <IoIosNotificationsOutline className='text-2xl' />
+            <IoIosNotificationsOutline className='text-3xl' />
             {data?.length > 0 && (
-              <span className='absolute text-center top-0 right-1 text-sm text-white font-semibold w-4 h-4 rounded-full bg-red-600'>
+              <span className='absolute text-center top-0 right-1 text-sm text-white font-semibold w-5 h-5 rounded-full bg-red-600'>
                 {data?.length}
               </span>
             )}
@@ -117,7 +117,7 @@ const NotificationPanel = () => {
                               {moment(item.createdAt).fromNow()}
                             </span>
                           </div>
-                          <p className='line-clamp-1 mt-1 text-gray-600'>
+                          <p className='line-clamp-2 mt-1 text-gray-600'>
                             {item.text}
                           </p>
                         </div>
