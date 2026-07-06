@@ -7,3 +7,5 @@ export function getInitials(fullName) {
 
   return initialsStr;
 }
+
+
