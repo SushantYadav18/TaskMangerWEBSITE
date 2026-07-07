@@ -25,13 +25,15 @@ export function dateFormatter(dateString) {
 }
 
 export function getInitials(fullName) {
-  const names = fullName.split(" ");
+  const names = String(fullName || "").split(" ").filter(Boolean);
+
+  if (names.length === 0) {
+    return "";
+  }
 
   const initials = names.slice(0, 2).map((name) => name[0].toUpperCase());
 
-  const initialsStr = initials.join("");
-
-  return initialsStr;
+  return initials.join("");
 }
 
 export const PRIOTITYSTYELS = {
