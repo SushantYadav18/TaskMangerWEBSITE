@@ -1,4 +1,7 @@
 import React from 'react'
+import { MdGridVie } from "react-icons/md";
+import { FaList } from "react-icons/fa";
+
 
 const TABS = [
   { title: "Board View", icon: <MdGridVie /> },
