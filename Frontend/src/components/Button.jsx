@@ -11,6 +11,8 @@ const buttonVariants = {
 
 const Button = ({
   children,
+  label,
+  icon,
   className = "",
   variant = "primary",
   type = "button",
@@ -26,7 +28,8 @@ const Button = ({
       className={`inline-flex items-center justify-center rounded-lg font-semibold transition duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${variantClass} ${className}`}
       {...props}
     >
-      {children}
+      {icon && <span className="mr-2 inline-flex items-center">{icon}</span>}
+      {children || label}
     </button>
   );
 };

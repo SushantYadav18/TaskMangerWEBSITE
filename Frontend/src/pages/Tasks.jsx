@@ -1,10 +1,17 @@
-import React from 'react'
-import { MdGridVie } from "react-icons/md";
+import React from "react";
+import {  MdGridView } from "react-icons/md";
 import { FaList } from "react-icons/fa";
+import Loader from "../components/Loader";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import Title from "../components/Title";
+import Button from "../components/Button";
+import { IoMdAdd } from "react-icons/io";
+import Tabs from "../components/Tabs";
 
 
 const TABS = [
-  { title: "Board View", icon: <MdGridVie /> },
+  { title: "Board View", icon: <MdGridView /> },
   { title: "List View", icon: <FaList /> },
 ];
 
@@ -14,15 +21,44 @@ const TASK_TYPE = {
   completed: "bg-green-600",
 };
 
-
 const Tasks = () => {
+  const params = useParams();
 
-  return ( 
+  const [selected, setSelected] = useState(0);
+  const [open, setOpen] = useState(false);
+ const [loading, setLoading] = useState(false);
 
-    <div>
-        Tasks Page
+  const status = params?.status || "";
+  return loading ? (
+    <div className='py-10'>
+      <Loader />
     </div>
-  )
-}
+  ) : (
+     <div className='w-full'>
+      <div className='flex items-center justify-between mb-4'>
+        <Title title={status ? `${status} Tasks` : "Tasks"} />
 
-export default Tasks
+        {!status && (
+          <Button
+            //onClick={() => setOpen(true)}
+            label= "Create Task"
+            icon={<IoMdAdd className='text-lg' />}
+            className='flex flex-row-reverse gap-1 items-center
+             bg-blue-600 text-white rounded-md p-2 2xl:py-2.5'
+          />
+        )}
+      </div>
+
+      <div>
+ <Tabs tabs={TABS} setSelected={setSelected}>
+      
+      </Tabs>
+      </div>
+      {/* <AddTask open={open} setOpen={setOpen} /> */}
+    </div>
+
+    
+  );
+};
+
+export default Tasks;
